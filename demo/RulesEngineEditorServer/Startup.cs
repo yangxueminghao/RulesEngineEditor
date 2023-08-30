@@ -37,7 +37,32 @@ namespace RulesEngineEditorServer
             services.AddSingleton<WeatherForecastService>();
 
             //services.AddDbContext<RulesEngineEditorDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("RulesEngineEditorDB")));
-            services.AddDbContextFactory<RulesEngineEditorDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("RulesEngineEditorDB")), ServiceLifetime.Transient);
+            //services.AddDbContextFactory<RulesEngineEditorDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("RulesEngineEditorDB")), ServiceLifetime.Transient);
+
+            #region 数据库
+
+            #region Sqlite
+            //services.AddDbContextFactory<RulesEngineEditorDbContext>(options => {
+            //    var folder = Environment.SpecialFolder.LocalApplicationData;
+            //    var path = Environment.GetFolderPath(folder);
+            //    var DbPath = $"{path}{System.IO.Path.DirectorySeparatorChar}RulesEngineDemo.db";
+            //    options.UseSqlite($"Data Source={DbPath}", op => { });
+            //});
+            #endregion
+
+            #region MySql
+            services.AddDbContextFactory<RulesEngineEditorDbContext>(options => {
+                options.UseMySql(
+                     Configuration.GetConnectionString("RulesEngineEditorContext"),
+                     ServerVersion.AutoDetect(Configuration.GetConnectionString("RulesEngineEditorContext")),
+                     x => {
+                         x.MigrationsAssembly(typeof(Program).Assembly.GetName().Name);
+                     });
+            }); 
+            #endregion
+
+            services.AddScoped<DbContext, RulesEngineEditorDbContext>(); //表明MyDbContext是DbContext的具体实现 
+            #endregion
 
             services.AddRulesEngineEditor();
         }

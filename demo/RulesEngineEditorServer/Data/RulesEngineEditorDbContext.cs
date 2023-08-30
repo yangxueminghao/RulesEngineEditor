@@ -31,7 +31,7 @@ namespace RulesEngineEditor.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<WorkflowData>(entity => {
-                entity.ToTable("Workflow");
+                entity.ToTable("Workflows");
                 entity.HasKey(k => k.Id);
                 entity.Property(p => p.Id).ValueGeneratedOnAdd();
                 entity.Ignore(i => i.WorkflowsToInject);
@@ -40,11 +40,11 @@ namespace RulesEngineEditor.Data
             });
 
             modelBuilder.Entity<RuleData>(entity => {
-                entity.ToTable("Rule");
+                entity.ToTable("Rules");
                 entity.HasKey(k => k.Id);
                 entity.Property(p => p.Id).ValueGeneratedOnAdd();
                 entity.Ignore(i => i.IsSuccess);
-                entity.Ignore(i => i.ErrorMessage);
+                //entity.Ignore(i => i.ErrorMessage);
                 entity.Ignore(i => i.ExceptionMessage);
                 entity.Ignore(i => i.WorkflowsToInject);
 
