@@ -26,33 +26,34 @@
         {
             _workflowDatas = value;
 
-            //add any missing workflows into dbcontext
-            foreach (var wf in _workflowDatas)
-            {
-                if (!db.Workflows.Any(w => w.Id == wf.Id))
-                    db.Workflows.Add(wf);
-            }
+            //禁用自动保存
+            ////add any missing workflows into dbcontext
+            //foreach (var wf in _workflowDatas)
+            //{
+            //    if (!db.Workflows.Any(w => w.Id == wf.Id))
+            //        db.Workflows.Add(wf);
+            //}
 
-            //remove any missing workflows into dbcontext
-            foreach (var wf in db.Workflows)
-            {
-                if (!_workflowDatas.Any(w => w.Id == wf.Id))
-                    db.Workflows.Remove(wf);
-            }
+            ////remove any missing workflows into dbcontext
+            //foreach (var wf in db.Workflows)
+            //{
+            //    if (!_workflowDatas.Any(w => w.Id == wf.Id))
+            //        db.Workflows.Remove(wf);
+            //}
 
-            try
-            {
-                if (db.ChangeTracker.HasChanges())
-                {
-                    db.SaveChanges(true);
+            //try
+            //{
+            //    if (db.ChangeTracker.HasChanges())
+            //    {
+            //        db.SaveChanges(true);
 
-                    RefreshDB();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //        RefreshDB();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
         }
     }
 
