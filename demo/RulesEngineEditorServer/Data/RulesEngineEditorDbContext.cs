@@ -9,12 +9,14 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using RulesEngineEditorServer.Authentication;
 
 namespace RulesEngineEditor.Data
 {
-    public class RulesEngineEditorDbContext : DbContext
+    public class RulesEngineEditorDbContext : ApiAuthorizationDbContext<AppUser>
     {
-        public RulesEngineEditorDbContext(DbContextOptions<RulesEngineEditorDbContext> options) : base(options) { }
+        public RulesEngineEditorDbContext(DbContextOptions<RulesEngineEditorDbContext> options) : base(options, new OperationalStoreOptionsMigrations()) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

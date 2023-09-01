@@ -3,6 +3,7 @@
     // Licensed under the CC BY 4.0 License.
 *@
 @inherits LayoutComponentBase
+@using RulesEngineEditorServer.Components
 
 <div class="page">
     <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
@@ -19,14 +20,16 @@
                     <a href="/demo">Demo (sample data)</a>
                     &nbsp;
                     <a href="https://github.com/alexreich/RulesEngineEditor" target="_blank">About</a>
-                </div>
+                </div>                
             </div>
         </div>
+        <LoginDisplay />
         <div class="content px-4">
             @Body
         </div>
     </div>
 </div>
+
 
 @code {
     private bool collapseNavMenu = false;

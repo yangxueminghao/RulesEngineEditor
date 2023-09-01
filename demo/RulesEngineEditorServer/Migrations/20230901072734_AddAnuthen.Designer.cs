@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RulesEngineEditor.Data;
 
@@ -10,9 +11,11 @@ using RulesEngineEditor.Data;
 namespace RulesEngineEditorServer.Migrations
 {
     [DbContext(typeof(RulesEngineEditorDbContext))]
-    partial class RulesEngineEditorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230901072734_AddAnuthen")]
+    partial class AddAnuthen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

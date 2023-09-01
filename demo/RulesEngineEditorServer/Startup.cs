@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using RulesEngineEditor.Services;
 using RulesEngineEditor.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Components.Authorization;
+using RulesEngineEditorServer.Authentication;
 
 namespace RulesEngineEditorServer
 {
@@ -58,7 +60,10 @@ namespace RulesEngineEditorServer
                      x => {
                          x.MigrationsAssembly(typeof(Program).Assembly.GetName().Name);
                      });
-            }); 
+            });
+            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<RulesEngineEditorDbContext>(); 
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>();
             #endregion
 
             services.AddScoped<DbContext, RulesEngineEditorDbContext>(); //表明MyDbContext是DbContext的具体实现 
@@ -85,6 +90,9 @@ namespace RulesEngineEditorServer
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication(); 
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapBlazorHub();
