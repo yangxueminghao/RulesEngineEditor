@@ -1,6 +1,9 @@
-﻿<AuthorizeView>
+﻿
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage">Hello,context.User.Identity.Name!</a>
+        <a href="Identity/Account/Manage">Hello,@context.User.Identity.Name!</a>
         <form method="post" action="/LogOut" style="display: inline-block;">
             <button type="submit" class="nav-link btn btn-link">Log out</button>
         </form>
@@ -10,3 +13,16 @@
         <a href="Identity/Account/Login">Log in</a>
     </NotAuthorized>
 </AuthorizeView>
+
+
+@code {
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var context = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaimsPrincipalData();
+    }
+}
