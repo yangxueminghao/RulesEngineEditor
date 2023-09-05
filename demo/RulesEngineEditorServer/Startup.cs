@@ -61,7 +61,7 @@ namespace RulesEngineEditorServer
                          x.MigrationsAssembly(typeof(Program).Assembly.GetName().Name);
                      });
             });
-            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<RulesEngineEditorDbContext>(); 
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<AppUser>>();
             #endregion
